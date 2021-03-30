@@ -1,0 +1,16 @@
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\obj\Debug\net5.0\Week4_Lab_4.2.csprojAssemblyReference.cache
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\obj\Debug\net5.0\Week4_Lab_4.2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\obj\Debug\net5.0\Week4_Lab_4.2.AssemblyInfoInputs.cache
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\obj\Debug\net5.0\Week4_Lab_4.2.AssemblyInfo.cs
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\obj\Debug\net5.0\Week4_Lab_4.2.csproj.CoreCompileInputs.cache
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\bin\Debug\net5.0\Week4_Lab_4.2.exe
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\bin\Debug\net5.0\Week4_Lab_4.2.deps.json
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\bin\Debug\net5.0\Week4_Lab_4.2.runtimeconfig.json
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\bin\Debug\net5.0\Week4_Lab_4.2.runtimeconfig.dev.json
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\bin\Debug\net5.0\Week4_Lab_4.2.dll
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\bin\Debug\net5.0\ref\Week4_Lab_4.2.dll
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\bin\Debug\net5.0\Week4_Lab_4.2.pdb
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\obj\Debug\net5.0\Week4_Lab_4.2.dll
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\obj\Debug\net5.0\ref\Week4_Lab_4.2.dll
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\obj\Debug\net5.0\Week4_Lab_4.2.pdb
+C:\Users\JWeiner\source\repos\Week4_Lab_4.2\Week4_Lab_4.2\obj\Debug\net5.0\Week4_Lab_4.2.genruntimeconfig.cache
