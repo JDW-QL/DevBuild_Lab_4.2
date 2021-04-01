@@ -1,0 +1,10 @@
+Die Hard,Action
+The Matrix,SciFi
+Se7en,Crime
+The Big Lebowski,Comedy
+The Shining,Horror
+The Thing,Horror
+Saving Private Ryan,War
+Pan's Labyrinth,Fantasy
+Godzilla,SciFi
+Justice League,Super Hero
