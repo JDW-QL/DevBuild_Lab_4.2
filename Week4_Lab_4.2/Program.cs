@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Week4_Lab_4._2
 {
-    class MoviePlaylist
+    class MoviePlaylist //MoviePlaylist class. Manages lists of type Movie
     {
         public List<Movie> PlayList { get; set; } // Playlist getter, _playlist is private
 
@@ -58,7 +58,7 @@ namespace Week4_Lab_4._2
                 count++;
             }
         }
-        public static int EditMenu(MoviePlaylist cur)
+        public static int EditMenu(MoviePlaylist cur) // Displays Editor menu and returns user choice
         {
             Console.Clear();
             Console.WriteLine("\n                                        Welcome to the Playlist Editor v1.0 \n");
@@ -67,21 +67,22 @@ namespace Week4_Lab_4._2
             Console.WriteLine("                             ==========================================================");
             Console.WriteLine("                             |                                                        |");
 
-            for (int i = 1; i < cur.PlayList.Count + 1; i++)
+            for (int i = 1; i < cur.PlayList.Count + 1; i++) // prints out playlist
             {
-                Console.WriteLine(String.Format($"                             |       {i+". ",4}{cur.PlayList[i - 1].Title,-25}{cur.PlayList[i - 1].Category,-20}|"));
+                Console.WriteLine(String.Format($"                             |       {i + ". ",4}{cur.PlayList[i - 1].Title,-25}{cur.PlayList[i - 1].Category,-20}|"));
             }
             Console.WriteLine("                             |                                                        |");
             Console.WriteLine("                             ==========================================================\n");
             int choice = 0;
             bool fPass = true;
-            while (choice < 1 || choice > 6)
+            while (choice < 1 || choice > 8) // input validation 1-8
             {
                 if (fPass == false)
-                    Console.WriteLine("\nInvalid entry. Please make a selection between 1 and 4.");
+                    Console.WriteLine("\nInvalid entry. Please make a selection between 1 and 8.");
                 Console.WriteLine("                                     1: Add a Movie     2: Remove a Movie");
                 Console.WriteLine("                                     3: Edit a Title    4: Edit a Category");
-                Console.Write("                                     5: Clear Playlist  6: Exit Playlist editor:    ");
+                Console.WriteLine("                                     5: Sort by Title   6: Sort by Category");
+                Console.Write("                                     7: Clear Playlist  8: Exit Playlist:        ");
                 Int32.TryParse(Console.ReadLine(), out choice);
             }
             Console.WriteLine();
@@ -89,25 +90,25 @@ namespace Week4_Lab_4._2
 
 
         }
-        public static void EditPlaylist(MoviePlaylist currentPlaylist, int type)
+        public static void EditPlaylist(MoviePlaylist currentPlaylist, int type)  // Playlist Editor. Processes users choice. Makes changes to playlist.
         {
             int choice = 0;
             int tempNum;
             string temp, temp2;
             bool fPass;
-            while (choice != 6)
+            while (choice != 8) // back to main menu when user selects 8
             {
                 fPass = true;
                 tempNum = 0;
-                choice = EditMenu(currentPlaylist);
-                switch (choice)
+                choice = EditMenu(currentPlaylist); // playlist is sent to EditMenu. choice is returned
+                switch (choice) // Repeats until choice is false
                 {
                     case 1: // Add a Movie
                         Console.Write("Please enter the name of the movie to add: ");
                         temp = Console.ReadLine();
                         Console.Write($"Please enter the category of the movie {temp}: ");
                         temp2 = Console.ReadLine();
-                        currentPlaylist.PlayList.Add(new Movie(temp,temp2));
+                        currentPlaylist.PlayList.Add(new Movie(temp, temp2));
                         break;
 
                     case 2: // Remove a Movie
@@ -130,7 +131,7 @@ namespace Week4_Lab_4._2
                             fPass = false;
                             Int32.TryParse(Console.ReadLine(), out tempNum);
                         }
-                        Console.Write($"\n What would you like to change {currentPlaylist.PlayList[tempNum -1].Title} to: ");
+                        Console.Write($"\n What would you like to change {currentPlaylist.PlayList[tempNum - 1].Title} to: ");
                         temp = Console.ReadLine();
                         currentPlaylist.PlayList[tempNum - 1].Title = temp;
                         break;
@@ -147,7 +148,13 @@ namespace Week4_Lab_4._2
                         temp = Console.ReadLine();
                         currentPlaylist.PlayList[tempNum - 1].Category = temp;
                         break;
-                    case 5: // Clear Playlist
+                    case 5: // Sort by Title
+                        currentPlaylist.PlayList.Sort((x,y) => x.Title.CompareTo(y.Title));
+                        break;
+                    case 6: // Sort by Category
+                        currentPlaylist.PlayList.Sort((x, y) => x.Category.CompareTo(y.Category));
+                        break;
+                    case 7: // Clear Playlist
                         Console.WriteLine("Are you sure you would like to clear this playlist? This cannot be undone.");
                         Console.WriteLine("Note: The default playlist can be retrieved again from the change playlist menu.");
                         Console.Write("\nPlease type \"Clear Playlist\" to confirm or anything else to decline: ");
@@ -162,7 +169,7 @@ namespace Week4_Lab_4._2
                             Console.WriteLine("\nThe active playlist has NOT been cleared");
                         Thread.Sleep(2000);
                         break;
-                    case 6: // Exit Edior
+                    case 8: // Exit Edior
                         break;
                 }
 
@@ -190,14 +197,14 @@ namespace Week4_Lab_4._2
             }
         }
     }
-    class Movie
+    class Movie // Movie class 
     {
         public string Title { get; set; } // Title getter, _title is private
         public string Category { get; set; } // Category getter, _category is private
 
-        public static int x;
-        public static string currentFile;
-        public static string fullFilePath;
+        public static int x; // static variable that dictates how and where to save playlist after changes are made
+        public static string currentFile; // User given filepath
+        public static string fullFilePath; // file location indicator
 
         public Movie(string mTitle, string mCategory) // Constructor sets Title and Category
         {
@@ -211,17 +218,17 @@ namespace Week4_Lab_4._2
             Category = "[Unknown]";
         }
 
-        public Movie() // default category constructor 
+        public Movie() // default constructor 
         {
             Title = "[Unknown]";
             Category = "[Unknown]";
         }
 
-        public static void EditPlaylistMenu(MoviePlaylist currentPlaylist)
+        public static void EditPlaylistMenu(MoviePlaylist currentPlaylist) // sends playlist and file location indicator to EditPlaylistMenu
         {
             MoviePlaylist.EditPlaylist(currentPlaylist, x);
         }
-        public static void SetFilePath(string x)
+        public static void SetFilePath(string x) // sets fillFilePath to string x 
         {
             fullFilePath = x;
         }
@@ -230,7 +237,7 @@ namespace Week4_Lab_4._2
 
     class MainClass
     {
-        public static MoviePlaylist CreateTextPlaylist(string fPath)
+        public static MoviePlaylist CreateTextPlaylist(string fPath) // Reads in playlist from user given filepath
         {
             string[] lines;
             string[] words;
@@ -250,7 +257,18 @@ namespace Week4_Lab_4._2
             MoviePlaylist textPlaylist = new MoviePlaylist(textList);
             return textPlaylist;
         }
-        public static MoviePlaylist CreateTextPlaylist()
+        public static MoviePlaylist CreateNewPlaylist(string newPath) // Creates new empty playlist in project directory with user given name
+        {
+
+            Movie.SetFilePath(newPath);
+            List<Movie> textList = new List<Movie>();
+            Movie.x = 3;
+            Movie.currentFile = newPath;
+            MoviePlaylist textPlaylist = new MoviePlaylist(textList);
+            return textPlaylist;
+        }
+
+        public static MoviePlaylist CreateTextPlaylist() // Reads in playlist from MoviesText.txt in project directory.
         {
             List<Movie> textList = new List<Movie>();
             string[] lines = File.ReadAllLines("MoviesText.txt");
@@ -266,7 +284,7 @@ namespace Week4_Lab_4._2
             MoviePlaylist textPlaylist = new MoviePlaylist(textList);
             return textPlaylist;
         }
-        public static MoviePlaylist CreateDefaultPlaylist()
+        public static MoviePlaylist CreateDefaultPlaylist() // Creates hardcoded Default Playlist
         {
             Movie.x = 1;
             List<Movie> defaultList = new List<Movie>();   //  new MoviePlaylist
@@ -309,52 +327,74 @@ namespace Week4_Lab_4._2
                 return false;
             return true;
         }
-        public static MoviePlaylist PlaylistLocation()
+        public static MoviePlaylist PlaylistLocation() // Retrieves playlist or creates a new one if user requests
         {
             int choice = 0;
             bool first = true;
 
-            while (choice < 1 || choice > 3)
+            while (choice < 1 || choice > 4) // Input validation 1 - 4
             {
                 if (!first)
                 {
                     Console.Clear();
-                    Console.WriteLine("\nInvalid Input. Please enter an integer 1-3.");
+                    Console.WriteLine("\nInvalid Input. Please enter an integer 1-4.");
                 }
                 Console.WriteLine("How would you like to retrieve your playlist?\n");
-                Console.WriteLine("1: Default List");
-                Console.WriteLine("2: Text file in bin");
-                Console.WriteLine("3: Enter filepath for .txt\n");
+                Console.WriteLine("1: Default Playlist");
+                Console.WriteLine("2: Text file in project directory");
+                Console.WriteLine("3: Enter filepath for .txt");
+                Console.WriteLine("4. Create a new Playlist\n");
                 Int32.TryParse(Console.ReadLine(), out choice);
                 first = false;
             }
             switch (choice)
             {
-                case 1:
+                case 1: // Loads Hardcoded Default Playlist. This does NOT save after program use.
                     return CreateDefaultPlaylist();
-                case 2:
+                case 2:  // Pulls MoviesText.txt Playlist located in project directory. This DOES save after program use.
                     return CreateTextPlaylist();
-                default:
+                case 3: // Pulls a .txt Playlist from the users designated filepath. This DOES save after program use.
                     Console.Write("\nPlease enter the full filepath for the text file: ");
                     string filePath = Console.ReadLine();
-                    if (!File.Exists(filePath))
+                    if (!File.Exists(filePath)) // If .txt in filepath does not exist, loads Default Playlist.
                     {
                         Console.WriteLine("Invalid file path. Loading up the Default Playlist.");
                         Thread.Sleep(2000);
                         return CreateDefaultPlaylist();
                     }
-                        return CreateTextPlaylist(filePath);
+                    return CreateTextPlaylist(filePath); // Sends file path entered by user to CreateTextPlaylist method.
+                case 4:// Asks the user for a name for new Playlist .txt file. This is created in project directory. This DOES save after program use.
+                    Console.Write("\nPlease enter neme of the new Playlist: ");
+                    string fileName = Console.ReadLine();
+                    fileName = $"C:\\Users\\JWeiner\\source\\repos\\Week4_Lab_4.2\\Week4_Lab_4.2\\bin\\Debug\\net5.0\\" + fileName + ".txt";
+                    if (File.Exists(fileName)) // if file by user entered name already exists in this location, loads Default Playlist.
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\nThis Playlist already exists in project directory.");
+                        Console.WriteLine("Please load this playlist or pick a new file name.");
+                        Console.Write("Loading up the Default Playlist.");
+                        for (int i = 0; i < 7; i++)
+                        {
+                            Thread.Sleep(1000);
+                            Console.Write(".");
+                        }
+                       
+                        return CreateDefaultPlaylist();
+                    }
+                    return CreateNewPlaylist(fileName); // Sends full filepath/name to CreateNewPlayList method.
+                default:
+                    return CreateDefaultPlaylist(); // Program has a cow if this isnt here, even though default cannot be accessed.
             }
         }
-        public static void MainMenu()
+        public static void MainMenu() // Main menu for the program. Calls methods according to user input
         {
             int choice;
             string catChoice;
             bool firstPass;
             bool change;
-            MoviePlaylist currentPlaylist;
-            List<string> mCats = new List<string>();
-            currentPlaylist = PlaylistLocation();
+            MoviePlaylist currentPlaylist; // current list of Movies we are working with
+            List<string> mCats = new List<string>(); // Temporary list of unique Movie categories within the current list
+            currentPlaylist = PlaylistLocation(); // Access the list of Movies the user wishes to work with
 
             do
             {
@@ -362,12 +402,12 @@ namespace Week4_Lab_4._2
                 firstPass = true;
                 change = false;
                 Console.Clear();
-                Console.WriteLine("Welcome to the Movie List Application!\n"); // Program greeting message
+                Console.WriteLine("Welcome to the Movie List Application!\n");
                 Console.WriteLine($"There are {currentPlaylist.PlayList.Count} movies in the list\n");
                 mCats = MoviePlaylist.DisplayCategories(currentPlaylist); // displays unique categories sorted and returns list to mCats
 
 
-                while (choice < 1 || choice > mCats.Count + 3) // Input validation
+                while (choice < 1 || choice > mCats.Count + 3) // Input validation. Int 1 - ( number of unique categories + 3 )
                 {
                     if (firstPass == false)
                         Console.WriteLine($"\nInvalid input. Please enter an integer between 1 and {mCats.Count + 3}.");
@@ -375,40 +415,43 @@ namespace Week4_Lab_4._2
                     Int32.TryParse(Console.ReadLine(), out choice);
                     firstPass = false;
                 }
-                if (choice == mCats.Count + 1)
+                if (choice == mCats.Count + 1) // Launch Playlist Editor
                 {
                     Console.Clear();
                     Movie.EditPlaylistMenu(currentPlaylist);
                     change = true;
                 }
-                else if (choice == mCats.Count + 2)
+                else if (choice == mCats.Count + 2) // Change Playlist
                 {
                     Console.Clear();
                     currentPlaylist = PlaylistLocation();
                     change = true;
                 }
-                else if (choice == mCats.Count + 3)
+                else if (choice == mCats.Count + 3) // Exit Program
                 {
                     break;
                 }
                 else
                 {
-                    catChoice = mCats[choice - 1]; // turns number entered by user into correct category
-                    MoviePlaylist.DisplayMoviesInCat(catChoice, currentPlaylist); // Displays all movies in playlist matching users selection in alphabetical order
-                }
-            } while (change == true || Repeat()); // Calls method to see if user would like to continue, returns as true if yes, false if no   
-
-        }
+                    catChoice = mCats[choice - 1]; // translates number entered by user into correct category
+                    MoviePlaylist.DisplayMoviesInCat(catChoice, currentPlaylist); // Displays all movies in playlist 
+                }                                                                // matching users selection in alphabetical order
+            } while (change == true || Repeat()); // If user went to Editor or changes playlist, they are NOT asked if they want to continue 
+        }                                        // Calls method to see if user would like to continue, returns as true if yes, false if no ( back to Main ) 
         class Program
         {
-            static void Main(string[] args)
+            static void Main(string[] args) // Main includes welcome greeting and end program message. Calls Main Menu in between
             {
 
                 Console.WriteLine("Welcome to the Movie List Application!\n"); // Program greeting message
                 MainMenu();
                 Console.Clear();
-                Console.WriteLine("Thank you for using the Movie List Application!"); // end program message
-                Console.WriteLine("\nGoodybye!\n");
+                Console.WriteLine("\n\n\n\n\n                                 Thank you for using the Movie List Application!\n\n\n\n\n\n"); // end program message
+                Console.WriteLine("                                                ****************");
+                Console.WriteLine("                                                *              *");
+                Console.WriteLine("                                                *   Goodybye!  *");
+                Console.WriteLine("                                                *              *");
+                Console.WriteLine("                                                ****************\n\n\n\n\n");
             }
 
         }
